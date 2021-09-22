@@ -54,6 +54,9 @@ class TransactionTypeTemplate(models.Model):
         verbose_name = 'Template de Tipo de Transação'
         verbose_name_plural = 'Template de Tipo de Transações'
 
+    def __str__(self):
+        return f'{self.description} - {self.operation}'
+
     description = models.CharField(
         verbose_name='Descrição',
         help_text='Descrição do tipo de transação',
@@ -95,6 +98,9 @@ class ImportTemplate(models.Model):
         verbose_name = 'Template de Importação'
         verbose_name_plural = 'Template de Importações'
 
+    def __str__(self):
+        return self.description
+
     description = models.CharField(
         verbose_name='Descrição',
         help_text='Descrição do template de importação',
@@ -117,6 +123,9 @@ class ImportCnabTemplate(models.Model):
     class Meta:
         """Meta ImportCnabTemplate"""
         verbose_name = 'Import CNAB Template'
+
+    def __str__(self):
+        return f'{self.cnab_template.description} - {self.order}'
 
     cnab_template = models.ForeignKey(
         CnabTemplate,
