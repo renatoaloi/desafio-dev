@@ -1,0 +1,82 @@
+[{
+        "model": "api.transactiontypetemplate",
+        "pk": 1,
+        "fields": {
+            "description": "Débito",
+            "operation": "in",
+            "signal": "plus"
+        }
+    },
+    {
+        "model": "api.transactiontypetemplate",
+        "pk": 2,
+        "fields": {
+            "description": "Boleto",
+            "operation": "out",
+            "signal": "minus"
+        }
+    },
+    {
+        "model": "api.transactiontypetemplate",
+        "pk": 3,
+        "fields": {
+            "description": "Financiamento",
+            "operation": "out",
+            "signal": "minus"
+        }
+    },
+    {
+        "model": "api.transactiontypetemplate",
+        "pk": 4,
+        "fields": {
+            "description": "Crédito",
+            "operation": "in",
+            "signal": "plus"
+        }
+    },
+    {
+        "model": "api.transactiontypetemplate",
+        "pk": 5,
+        "fields": {
+            "description": "Recebimento Empréstimo",
+            "operation": "in",
+            "signal": "plus"
+        }
+    },
+    {
+        "model": "api.transactiontypetemplate",
+        "pk": 6,
+        "fields": {
+            "description": "Vendas",
+            "operation": "in",
+            "signal": "plus"
+        }
+    },
+    {
+        "model": "api.transactiontypetemplate",
+        "pk": 7,
+        "fields": {
+            "description": "Recebimento TED",
+            "operation": "in",
+            "signal": "plus"
+        }
+    },
+    {
+        "model": "api.transactiontypetemplate",
+        "pk": 8,
+        "fields": {
+            "description": "Recebimento DOC",
+            "operation": "in",
+            "signal": "plus"
+        }
+    },
+    {
+        "model": "api.transactiontypetemplate",
+        "pk": 9,
+        "fields": {
+            "description": "Aluguel",
+            "operation": "out",
+            "signal": "minus"
+        }
+    }
+]

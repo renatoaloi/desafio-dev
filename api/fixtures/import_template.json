@@ -1,0 +1,7 @@
+[{
+    "model": "api.importtemplate",
+    "pk": 1,
+    "fields": {
+        "description": "Formato #1"
+    }
+}]

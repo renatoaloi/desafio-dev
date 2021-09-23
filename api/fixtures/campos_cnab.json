@@ -1,0 +1,89 @@
+[{
+        "model": "api.cnabtemplate",
+        "pk": 1,
+        "fields": {
+            "description": "Tipo",
+            "start": 1,
+            "end": 1,
+            "size": 1,
+            "commentary": "Tipo da transação"
+        }
+    },
+    {
+        "model": "api.cnabtemplate",
+        "pk": 2,
+        "fields": {
+            "description": "Data",
+            "start": 2,
+            "end": 9,
+            "size": 8,
+            "commentary": "Data da ocorrência"
+        }
+    },
+    {
+        "model": "api.cnabtemplate",
+        "pk": 3,
+        "fields": {
+            "description": "Valor",
+            "start": 10,
+            "end": 19,
+            "size": 10,
+            "commentary": "Valor da movimentação. Obs. O valor encontrado no arquivo precisa ser divido por cem(valor / 100.00) para normalizá-lo."
+        }
+    },
+    {
+        "model": "api.cnabtemplate",
+        "pk": 4,
+        "fields": {
+            "description": "CPF",
+            "start": 20,
+            "end": 30,
+            "size": 11,
+            "commentary": "CPF do beneficiário"
+        }
+    },
+    {
+        "model": "api.cnabtemplate",
+        "pk": 5,
+        "fields": {
+            "description": "Cartão",
+            "start": 31,
+            "end": 42,
+            "size": 12,
+            "commentary": "Cartão utilizado na transação"
+        }
+    },
+    {
+        "model": "api.cnabtemplate",
+        "pk": 6,
+        "fields": {
+            "description": "Hora",
+            "start": 43,
+            "end": 48,
+            "size": 6,
+            "commentary": "Hora da ocorrência atendendo ao fuso de UTC-3"
+        }
+    },
+    {
+        "model": "api.cnabtemplate",
+        "pk": 7,
+        "fields": {
+            "description": "Dono da loja",
+            "start": 49,
+            "end": 62,
+            "size": 14,
+            "commentary": "Nome do representante da loja"
+        }
+    },
+    {
+        "model": "api.cnabtemplate",
+        "pk": 8,
+        "fields": {
+            "description": "Nome loja",
+            "start": 63,
+            "end": 81,
+            "size": 19,
+            "commentary": "Nome da loja"
+        }
+    }
+]

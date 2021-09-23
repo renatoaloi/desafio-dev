@@ -7,7 +7,7 @@ class CnabTemplate(models.Model):
 
     class Meta:
         """Meta CnabTemplate"""
-        verbose_name = 'Template de CNAB'
+        verbose_name = 'Template de Campos de CNAB'
 
     def __str__(self):
         return self.description

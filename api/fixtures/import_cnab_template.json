@@ -1,0 +1,73 @@
+[{
+        "model": "api.importcnabtemplate",
+        "pk": 1,
+        "fields": {
+            "cnab_template": 1,
+            "import_template": 1,
+            "order": 1
+        }
+    },
+    {
+        "model": "api.importcnabtemplate",
+        "pk": 2,
+        "fields": {
+            "cnab_template": 2,
+            "import_template": 1,
+            "order": 2
+        }
+    },
+    {
+        "model": "api.importcnabtemplate",
+        "pk": 3,
+        "fields": {
+            "cnab_template": 3,
+            "import_template": 1,
+            "order": 3
+        }
+    },
+    {
+        "model": "api.importcnabtemplate",
+        "pk": 4,
+        "fields": {
+            "cnab_template": 4,
+            "import_template": 1,
+            "order": 4
+        }
+    },
+    {
+        "model": "api.importcnabtemplate",
+        "pk": 5,
+        "fields": {
+            "cnab_template": 5,
+            "import_template": 1,
+            "order": 5
+        }
+    },
+    {
+        "model": "api.importcnabtemplate",
+        "pk": 6,
+        "fields": {
+            "cnab_template": 6,
+            "import_template": 1,
+            "order": 6
+        }
+    },
+    {
+        "model": "api.importcnabtemplate",
+        "pk": 7,
+        "fields": {
+            "cnab_template": 7,
+            "import_template": 1,
+            "order": 7
+        }
+    },
+    {
+        "model": "api.importcnabtemplate",
+        "pk": 8,
+        "fields": {
+            "cnab_template": 8,
+            "import_template": 1,
+            "order": 8
+        }
+    }
+]
