@@ -1,5 +1,5 @@
 [{
-    "model": "api.importtemplate",
+    "model": "web.importtemplate",
     "pk": 1,
     "fields": {
         "description": "Formato #1"
