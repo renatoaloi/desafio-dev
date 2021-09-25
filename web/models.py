@@ -12,7 +12,6 @@ class CnabTemplate(models.Model):
     def __str__(self):
         return self.description
 
-
     description = models.CharField(
         verbose_name='Descrição do campo',
         help_text='Descrição do campo CNAB',
@@ -147,4 +146,3 @@ class ImportCnabTemplate(models.Model):
         verbose_name='Ordem do campo CNAB',
         help_text='Ordem dos campos do formato CNAB'
     )
-

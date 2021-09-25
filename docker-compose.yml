@@ -1,0 +1,27 @@
+version: "3.5"
+networks:
+  parser_network:
+    driver: bridge
+volumes:
+  parser_volume:
+services:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=cnab
+      - POSTGRES_USER=parser
+      - POSTGRES_DB=parser
+    volumes:
+      - parser_volume:/var/lib/postgresql/data
+    networks:
+      - parser_network
+    ports:
+      - 5432:5432
+  queue:
+    image: rabbitmq
+    ports:
+      - 5672:5672
+  cache:
+    image: redis
+    ports:
+      - 6379:6379

@@ -1,6 +1,6 @@
-import os
-import rpyc
+"""CNAB Parser API Views"""
 import json
+import rpyc
 
 from dateutil.rrule import rrulestr
 from rest_framework.views import APIView
@@ -11,10 +11,12 @@ from cnab_parser.settings import RPYC_HOST, RPYC_PORT
 
 
 class SchedulerView(APIView):
+    """File Upload Scheduler View"""
     authentication_classes = []
 
     @staticmethod
     def schedule_file_process(recurrence, file):
+        """Scheduler function"""
         rrules = list(rrulestr(recurrence))
         conn = rpyc.connect(RPYC_HOST, RPYC_PORT)
         for rrule in rrules:
@@ -29,6 +31,7 @@ class SchedulerView(APIView):
         conn.close()
 
     def post(self, request):
+        """File upload scheduler post method"""
         try:
             SchedulerView.schedule_file_process(**request.data)
             return Response({'ok': True, 'data': {}})
