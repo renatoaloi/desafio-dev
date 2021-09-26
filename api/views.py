@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from api.serializers import CreateCnabImportSerializer
 from api.models import CnabImport, Shop
 from api.utils import error_response, return_not_found, success_response
+from cnab_parser import settings
 
 
 class SchedulerView(APIView):
@@ -41,10 +42,11 @@ class CnabImportView(APIView):
                     )
                     if serializer.is_valid():
                         serializer.save()
-                        CnabImport.schedule_file_process(
-                            recurrence=serializer.data.get('recurrence_rule'),
-                            file=serializer.data.get('file')
-                        )
+                        if not settings.TEST:
+                            CnabImport.schedule_file_process(
+                                recurrence=serializer.data.get('recurrence_rule'),
+                                file=serializer.data.get('file')
+                            )
                         return success_response(serializer.data)
                     return error_response(serializer.errors)
                 return error_response('file is a required field')
