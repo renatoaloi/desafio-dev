@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('web', '0001_initial'),
+        ('backend', '0001_initial'),
     ]
 
     operations = [
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('create_date', models.DateTimeField(auto_now_add=True, verbose_name='Data de Criação')),
                 ('done_date', models.DateTimeField(blank=True, null=True, verbose_name='Data de Feito')),
                 ('rows_imported', models.IntegerField(blank=True, null=True, verbose_name='Linhas Importadas')),
-                ('template', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='template_fiels', to='web.importtemplate', verbose_name='Template de importação')),
+                ('template', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='template_fiels', to='backend.importtemplate', verbose_name='Template de importação')),
             ],
             options={
                 'verbose_name': 'Importação de Arquivo CNAB',

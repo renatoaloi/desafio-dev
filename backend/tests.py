@@ -1,6 +1,6 @@
 """Unit tests"""
 from django.test import TestCase
-from web.models import CnabTemplate, ImportCnabTemplate, \
+from backend.models import CnabTemplate, ImportCnabTemplate, \
     ImportTemplate, TransactionTypeTemplate
 
 

@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('order', models.IntegerField(blank=True, help_text='Ordem dos campos do formato CNAB', null=True, verbose_name='Ordem do campo CNAB')),
-                ('cnab_template', models.ForeignKey(help_text='Template de campos do formato CNAB', on_delete=django.db.models.deletion.DO_NOTHING, to='web.cnabtemplate', verbose_name='Template CNAB')),
+                ('cnab_template', models.ForeignKey(help_text='Template de campos do formato CNAB', on_delete=django.db.models.deletion.DO_NOTHING, to='backend.cnabtemplate', verbose_name='Template CNAB')),
             ],
             options={
                 'verbose_name': 'Import CNAB Template',
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.CharField(blank=True, help_text='Descrição do template de importação', max_length=255, null=True, verbose_name='Descrição')),
-                ('template', models.ManyToManyField(help_text='Template de campos do formato CNAB', related_name='import_templates', through='web.ImportCnabTemplate', to='web.CnabTemplate')),
+                ('template', models.ManyToManyField(help_text='Template de campos do formato CNAB', related_name='import_templates', through='backend.ImportCnabTemplate', to='backend.CnabTemplate')),
             ],
             options={
                 'verbose_name': 'Template de Importação',
@@ -65,6 +65,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='importcnabtemplate',
             name='import_template',
-            field=models.ForeignKey(help_text='Template importação que organiza os campos do formato CNAB', on_delete=django.db.models.deletion.DO_NOTHING, to='web.importtemplate', verbose_name='Template de Importação'),
+            field=models.ForeignKey(help_text='Template importação que organiza os campos do formato CNAB', on_delete=django.db.models.deletion.DO_NOTHING, to='backend.importtemplate', verbose_name='Template de Importação'),
         ),
     ]

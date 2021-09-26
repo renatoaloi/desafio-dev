@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_dramatiq',
     'api',
-    'web'
+    'backend'
 ]
 
 MIDDLEWARE = [

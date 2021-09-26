@@ -7,7 +7,7 @@ from dateutil.rrule import rrulestr
 from django.db import models
 
 from cnab_parser.settings import RPYC_HOST, RPYC_PORT
-from web.models import ImportTemplate
+from backend.models import ImportTemplate
 
 
 class Shop(models.Model):

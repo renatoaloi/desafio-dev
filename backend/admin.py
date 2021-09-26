@@ -1,7 +1,7 @@
 """Admin MVC"""
 from django.contrib import admin
 from django.utils.html import format_html_join
-from web.models import CnabTemplate, ImportTemplate, \
+from backend.models import CnabTemplate, ImportTemplate, \
     ImportCnabTemplate, TransactionTypeTemplate
 
 

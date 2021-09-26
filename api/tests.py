@@ -5,7 +5,7 @@ from django.urls.base import reverse
 from django.test import TestCase, Client
 
 from api.models import Shop
-from web.models import CnabTemplate, ImportTemplate
+from backend.models import CnabTemplate, ImportTemplate
 
 
 class CnabParserApiTest(TestCase):

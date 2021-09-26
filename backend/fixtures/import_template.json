@@ -1,5 +1,5 @@
 [{
-    "model": "web.importtemplate",
+    "model": "backend.importtemplate",
     "pk": 1,
     "fields": {
         "description": "Formato #1"

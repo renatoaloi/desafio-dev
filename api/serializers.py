@@ -2,7 +2,7 @@
 from dateutil.rrule import rrule, HOURLY
 from rest_framework import serializers
 from api.models import CnabImport
-from web.models import ImportTemplate
+from backend.models import ImportTemplate
 
 
 class CreateCnabImportSerializer(serializers.ModelSerializer):
