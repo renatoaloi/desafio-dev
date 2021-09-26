@@ -8,8 +8,8 @@ urlpatterns = [
         SchedulerView.as_view()
     ),
     path(
-        'shop/<int:shop_id>/import',
+        'file/<int:template_id>/import',
         CnabImportView.as_view(),
-        name='shop_import'
+        name='file_import'
     )
 ]
