@@ -1,6 +1,13 @@
 '''CNAB Parser API Models'''
-from web.models import ImportTemplate
+import json
+from datetime import datetime
+import pytz
+import rpyc
+from dateutil.rrule import rrulestr
 from django.db import models
+
+from cnab_parser.settings import RPYC_HOST, RPYC_PORT
+from web.models import ImportTemplate
 
 
 class Shop(models.Model):
@@ -31,6 +38,35 @@ class Shop(models.Model):
 class CnabImport(models.Model):
     '''CNAB Import model'''
 
+    @staticmethod
+    def schedule_file_process(recurrence, file):
+        """Scheduler function"""
+        rrules = list(rrulestr(recurrence))
+        conn = rpyc.connect(RPYC_HOST, RPYC_PORT)
+        for rrule in rrules:
+            conn.root.add_job(
+                'api:tasks.process_file',
+                'date',
+                args=[json.dumps({
+                    'file': file
+                })],
+                run_date=rrule.isoformat()
+            )
+        conn.close()
+
+    @staticmethod
+    def convert_time_start_to_utc_date(start_time):
+        """Convert rrule time start to UTC"""
+        dt_local = datetime.now()
+        dt_local = dt_local.replace(
+            hour=start_time.hour,
+            minute=start_time.minute,
+            second=start_time.second
+        )
+        local_tz = pytz.timezone("America/Sao_Paulo")
+        dt_local = local_tz.localize(dt_local)
+        return dt_local.astimezone(pytz.utc)
+
     class Meta:
         verbose_name = 'Importação de Arquivo CNAB'
         verbose_name_plural = 'Importações de Arquivo CNAB'
@@ -42,9 +78,9 @@ class CnabImport(models.Model):
         on_delete=models.DO_NOTHING
     )
 
-    file = models.CharField(
-        verbose_name='Caminho do Arquivo',
-        max_length=1024,
+    file = models.FileField(
+        verbose_name='Arquivo CNAB',
+        upload_to='parser/%Y/%m/%d/',
         null=True,
         blank=True
     )
@@ -79,7 +115,7 @@ class CnabImport(models.Model):
     )
 
     def __str__(self) -> str:
-        return self.file
+        return str(self.file)
 
 
 class ShopImport(models.Model):

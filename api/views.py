@@ -1,45 +1,57 @@
 """CNAB Parser API Views"""
-import json
-import rpyc
-
-from dateutil.rrule import rrulestr
 from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 
-from cnab_parser.settings import RPYC_HOST, RPYC_PORT
+from api.serializers import CreateCnabImportSerializer
+from api.models import CnabImport, Shop, ShopImport
+from api.utils import error_response, return_not_found, success_response
 
 
 class SchedulerView(APIView):
     """File Upload Scheduler View"""
     authentication_classes = []
 
-    @staticmethod
-    def schedule_file_process(recurrence, file):
-        """Scheduler function"""
-        rrules = list(rrulestr(recurrence))
-        conn = rpyc.connect(RPYC_HOST, RPYC_PORT)
-        for rrule in rrules:
-            conn.root.add_job(
-                'api:tasks.process_file',
-                'date',
-                args=[json.dumps({
-                    'file': file
-                })],
-                run_date=rrule.isoformat()
-            )
-        conn.close()
-
     def post(self, request):
         """File upload scheduler post method"""
         try:
-            SchedulerView.schedule_file_process(**request.data)
-            return Response({'ok': True, 'data': {}})
+            CnabImport.schedule_file_process(**request.data)
+            return success_response()
         except Exception as err:
-            return Response(
-                {
-                    'ok': False,
-                    'error': str(err)
-                },
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(str(err))
+
+
+class CnabImportView(APIView):
+    """CNAB Import View"""
+    authentication_classes = []
+
+    def post(self, request, shop_id=None):
+        """Create CNAB file import"""
+        try:
+            shop = Shop.objects.filter(id=shop_id).first()
+            if shop:
+                file = request.FILES.get('file', None)
+                template_id = request.POST.get('template_id', None)
+                execution_datetime = request.POST.get('execution_datetime', None)
+                if file:
+                    serializer = CreateCnabImportSerializer(
+                        data={
+                            'file': file,
+                            'template_id': template_id,
+                            'execution_datetime': execution_datetime
+                        }
+                    )
+                    if serializer.is_valid():
+                        serializer.save()
+                        ShopImport.objects.create(
+                            shop=shop,
+                            cnab_import=serializer.instance
+                        )
+                        CnabImport.schedule_file_process(
+                            recurrence=serializer.data.get('recurrence_rule'),
+                            file=serializer.data.get('file')
+                        )
+                        return success_response(serializer.data)
+                    return error_response(serializer.errors)
+                return error_response('file is a required field')
+            return return_not_found()
+        except Exception as err:
+            return error_response(str(err))
