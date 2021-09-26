@@ -108,6 +108,17 @@ class ImportTemplate(models.Model):
         blank=True
     )
 
+    table_prefix = models.CharField(
+        verbose_name='Prefixo do nome da tabela',
+        help_text="""
+            Apelido a ser usado para nomear a tabela de 
+            forma única para cada template de importação
+        """,
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
     template = models.ManyToManyField(
         CnabTemplate,
         through='ImportCnabTemplate',

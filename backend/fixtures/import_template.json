@@ -2,6 +2,7 @@
     "model": "backend.importtemplate",
     "pk": 1,
     "fields": {
-        "description": "Formato #1"
+        "description": "Formato #1",
+        "table_prefix": "formato_1"
     }
 }]
