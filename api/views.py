@@ -2,7 +2,7 @@
 from rest_framework.views import APIView
 
 from api.serializers import CreateCnabImportSerializer
-from api.models import CnabImport, Shop, ShopImport
+from api.models import CnabImport, Shop
 from api.utils import error_response, return_not_found, success_response
 
 
@@ -41,10 +41,6 @@ class CnabImportView(APIView):
                     )
                     if serializer.is_valid():
                         serializer.save()
-                        ShopImport.objects.create(
-                            shop=shop,
-                            cnab_import=serializer.instance
-                        )
                         CnabImport.schedule_file_process(
                             recurrence=serializer.data.get('recurrence_rule'),
                             file=serializer.data.get('file')

@@ -23,6 +23,13 @@ class Shop(models.Model):
         max_length=255
     )
 
+    owner = models.CharField(
+        verbose_name='Dono da Loja',
+        null=True,
+        blank=True,
+        max_length=255
+    )
+
     balance = models.DecimalField(
         verbose_name='Saldo Inicial',
         null=True,
@@ -116,28 +123,3 @@ class CnabImport(models.Model):
 
     def __str__(self) -> str:
         return str(self.file)
-
-
-class ShopImport(models.Model):
-    """Shop import model"""
-
-    class Meta:
-        verbose_name = 'Importações da Loja'
-        verbose_name_plural = 'Importações das Lojas'
-
-    shop = models.ForeignKey(
-        Shop,
-        related_name='shops',
-        on_delete=models.DO_NOTHING,
-        verbose_name='Loja'
-    )
-
-    cnab_import = models.ForeignKey(
-        CnabImport,
-        related_name='imports',
-        on_delete=models.DO_NOTHING,
-        verbose_name='Importação CNAB'
-    )
-
-    def __str__(self) -> str:
-        return f'{self.shop.name} - {self.cnab_import.file}'

@@ -1,7 +1,6 @@
-from api.models import CnabImport, Shop, ShopImport
+from api.models import CnabImport, Shop
 from django.contrib import admin
 
 
 admin.site.register(Shop)
-admin.site.register(ShopImport)
 admin.site.register(CnabImport)
