@@ -42,7 +42,8 @@ class CnabImportView(APIView):
                     if not settings.TEST:
                         CnabImport.schedule_file_process(
                             recurrence=serializer.data.get('recurrence_rule'),
-                            file=serializer.data.get('file')
+                            file=serializer.data.get('file'),
+                            template_id=template_id
                         )
                     return success_response(serializer.data)
                 return error_response(serializer.errors)

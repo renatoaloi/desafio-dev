@@ -5,6 +5,14 @@ from django.db import models
 class CnabTemplate(models.Model):
     """Model CnabTemplate"""
 
+    DATA_TYPES = [
+        ('int', 'Número inteiro'),
+        ('varchar', 'String de texto'),
+        ('decimal', 'Número decimal'),
+        ('date', 'Data'),
+        ('timestamp', 'Data e hora'),
+    ]
+
     class Meta:
         """Meta CnabTemplate"""
         verbose_name = 'Template de Campos de CNAB'
@@ -15,6 +23,13 @@ class CnabTemplate(models.Model):
     description = models.CharField(
         verbose_name='Descrição do campo',
         help_text='Descrição do campo CNAB',
+        max_length=255,
+        null=True,
+        blank=True
+    )
+    field_name = models.CharField(
+        verbose_name='Nome do campo',
+        help_text='Nome do campo para criação da tabela',
         max_length=255,
         null=True,
         blank=True
@@ -40,6 +55,21 @@ class CnabTemplate(models.Model):
     commentary = models.TextField(
         verbose_name='Comentário',
         help_text='Comentário do campo CNAB',
+        null=True,
+        blank=True
+    )
+    data_type = models.CharField(
+        verbose_name='Tipo de dados do campo',
+        choices=DATA_TYPES,
+        help_text='Formatos permitidos: (int, varchar, decimal, date e timestamp)',
+        max_length=255,
+        null=True,
+        blank=True
+    )
+    type_format = models.CharField(
+        verbose_name='Formatação do campo',
+        help_text='Exemplo: %Y-%m-%d para formatar uma data',
+        max_length=255,
         null=True,
         blank=True
     )

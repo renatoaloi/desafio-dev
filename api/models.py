@@ -46,7 +46,7 @@ class CnabImport(models.Model):
     '''CNAB Import model'''
 
     @staticmethod
-    def schedule_file_process(recurrence, file):
+    def schedule_file_process(recurrence, file, template_id):
         """Scheduler function"""
         rrules = list(rrulestr(recurrence))
         conn = rpyc.connect(RPYC_HOST, RPYC_PORT)
@@ -55,7 +55,8 @@ class CnabImport(models.Model):
                 'api:tasks.process_file',
                 'date',
                 args=[json.dumps({
-                    'file': file
+                    'file': file,
+                    'template_id': template_id
                 })],
                 run_date=rrule.isoformat()
             )

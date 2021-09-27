@@ -3,10 +3,13 @@
         "pk": 1,
         "fields": {
             "description": "Tipo",
+            "field_name": "tipo",
             "start": 1,
             "end": 1,
             "size": 1,
-            "commentary": "Tipo da transação"
+            "commentary": "Tipo da transação",
+            "data_type": "int",
+            "type_format": ""
         }
     },
     {
@@ -14,10 +17,13 @@
         "pk": 2,
         "fields": {
             "description": "Data",
+            "field_name": "data",
             "start": 2,
             "end": 9,
             "size": 8,
-            "commentary": "Data da ocorrência"
+            "commentary": "Data da ocorrência",
+            "data_type": "date",
+            "type_format": "%Y%m%d"
         }
     },
     {
@@ -25,10 +31,13 @@
         "pk": 3,
         "fields": {
             "description": "Valor",
+            "field_name": "valor",
             "start": 10,
             "end": 19,
             "size": 10,
-            "commentary": "Valor da movimentação. Obs. O valor encontrado no arquivo precisa ser divido por cem(valor / 100.00) para normalizá-lo."
+            "commentary": "Valor da movimentação. Obs. O valor encontrado no arquivo precisa ser divido por cem(valor / 100.00) para normalizá-lo.",
+            "data_type": "decimal",
+            "type_format": "/100.0"
         }
     },
     {
@@ -36,10 +45,13 @@
         "pk": 4,
         "fields": {
             "description": "CPF",
+            "field_name": "cpf",
             "start": 20,
             "end": 30,
             "size": 11,
-            "commentary": "CPF do beneficiário"
+            "commentary": "CPF do beneficiário",
+            "data_type": "varchar",
+            "type_format": ""
         }
     },
     {
@@ -47,10 +59,13 @@
         "pk": 5,
         "fields": {
             "description": "Cartão",
+            "field_name": "cartao",
             "start": 31,
             "end": 42,
             "size": 12,
-            "commentary": "Cartão utilizado na transação"
+            "commentary": "Cartão utilizado na transação",
+            "data_type": "varchar",
+            "type_format": ""
         }
     },
     {
@@ -58,10 +73,13 @@
         "pk": 6,
         "fields": {
             "description": "Hora",
+            "field_name": "hora",
             "start": 43,
             "end": 48,
             "size": 6,
-            "commentary": "Hora da ocorrência atendendo ao fuso de UTC-3"
+            "commentary": "Hora da ocorrência atendendo ao fuso de UTC-3",
+            "data_type": "timestamp",
+            "type_format": "%H%M%S"
         }
     },
     {
@@ -69,10 +87,13 @@
         "pk": 7,
         "fields": {
             "description": "Dono da loja",
+            "field_name": "dono_loja",
             "start": 49,
             "end": 62,
             "size": 14,
-            "commentary": "Nome do representante da loja"
+            "commentary": "Nome do representante da loja",
+            "data_type": "varchar",
+            "type_format": ""
         }
     },
     {
@@ -80,10 +101,13 @@
         "pk": 8,
         "fields": {
             "description": "Nome loja",
+            "field_name": "nome_loja",
             "start": 63,
             "end": 81,
             "size": 19,
-            "commentary": "Nome da loja"
+            "commentary": "Nome da loja",
+            "data_type": "varchar",
+            "type_format": ""
         }
     }
 ]
