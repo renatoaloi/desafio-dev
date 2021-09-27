@@ -8,6 +8,8 @@ from backend.models import ImportTemplate
 class CreateCnabImportSerializer(serializers.ModelSerializer):
     """"Create CNAB Import serializer"""
 
+    id = serializers.IntegerField(read_only=True)
+
     template_id = serializers.PrimaryKeyRelatedField(
         source='template',
         queryset=ImportTemplate.objects.all(),
@@ -25,6 +27,7 @@ class CreateCnabImportSerializer(serializers.ModelSerializer):
     class Meta:
         model = CnabImport
         fields = [
+            'id',
             'template_id',
             'file',
             'execution_datetime',

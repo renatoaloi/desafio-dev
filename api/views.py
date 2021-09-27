@@ -43,6 +43,7 @@ class CnabImportView(APIView):
                         CnabImport.schedule_file_process(
                             recurrence=serializer.data.get('recurrence_rule'),
                             file=serializer.data.get('file'),
+                            cnab_import_id=serializer.data.get('id'),
                             template_id=template_id
                         )
                     return success_response(serializer.data)

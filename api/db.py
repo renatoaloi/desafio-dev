@@ -42,6 +42,20 @@ def insert_table(table_name, fields, values):
     sql += "');"
     return sql
 
+
+def format_fields(type_format, data_type, line_value):
+    """Apply format defined by template"""
+    if type_format:
+        if data_type == 'date':
+            new_date = datetime.strptime(line_value, type_format)
+            line_value = new_date.strftime('%Y-%m-%d')
+        elif data_type == 'timestamp':
+            new_timestamp = datetime.strptime(line_value, type_format)
+            line_value = new_timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        elif data_type == 'decimal':
+            line_value = str(eval(f'{float(line_value)} {type_format}'))
+    return line_value
+
 def get_fields(template_id):
     """Get all fields for that format"""
     return ImportCnabTemplate.objects.filter(
@@ -77,16 +91,11 @@ def do_import_data(file_path, template_id):
                 end = field.cnab_template.end
                 data_type = field.cnab_template.data_type
                 type_format = field.cnab_template.type_format
-                line_value = line[start-1:end].replace('\n', '')
-                if type_format:
-                    if data_type == 'date':
-                        new_date = datetime.strptime(line_value, type_format)
-                        line_value = new_date.strftime('%Y-%m-%d')
-                    elif data_type == 'timestamp':
-                        new_timestamp = datetime.strptime(line_value, type_format)
-                        line_value = new_timestamp.strftime('%Y-%m-%d %H:%M:%S')
-                    elif data_type == 'decimal':
-                        line_value = str(eval(f'{float(line_value)} {type_format}'))
+                line_value = format_fields(
+                    type_format,
+                    data_type,
+                    line[start-1:end].replace('\n', '')
+                )
                 line_data.append(line_value.strip())
             import_data.append(line_data)
     return import_data
