@@ -2,8 +2,8 @@
 from rest_framework.views import APIView
 
 from api.serializers import CreateCnabImportSerializer
-from api.models import CnabImport, Shop
-from api.utils import error_response, return_not_found, success_response
+from api.models import CnabImport
+from api.utils import error_response, success_response
 from cnab_parser import settings
 
 

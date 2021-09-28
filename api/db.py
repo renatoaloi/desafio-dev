@@ -5,11 +5,23 @@ from backend.models import ImportCnabTemplate
 
 def custom_sql(sql, fetch=True):
     """Custom SQL function"""
+    try:
+        row = None
+        with connection.cursor() as cursor:
+            cursor.execute(sql)
+            if fetch:
+                row = cursor.fetchone()
+        return row
+    except:
+        return None
+
+def custom_sql_all(sql, fetch=True):
+    """Custom SQL function"""
     row = None
     with connection.cursor() as cursor:
         cursor.execute(sql)
         if fetch:
-            row = cursor.fetchone()
+            row = cursor.fetchall()
     return row
 
 def check_table_exists(schema, table_name):
@@ -28,16 +40,16 @@ def check_table_exists(schema, table_name):
 
 def create_table(table_name, fields):
     """Create custom table"""
-    sql = f"CREATE TABLE {table_name} ("
+    sql = f"CREATE TABLE {table_name} (id serial, hash_id varchar, "
     sql += ",".join(fields)
     sql += ");"
     custom_sql(sql)
 
-def insert_table(table_name, fields, values):
+def insert_table(table_name, fields, values, hash_value):
     """Create custom table"""
-    sql = f"INSERT INTO {table_name} ("
+    sql = f"INSERT INTO {table_name} (hash_id, "
     sql += ",".join(fields)
-    sql += ") VALUES ('"
+    sql += f") VALUES ('{hash_value}', '"
     sql += "','".join(values)
     sql += "');"
     return sql
@@ -100,10 +112,15 @@ def do_import_data(file_path, template_id):
             import_data.append(line_data)
     return import_data
 
-def send_it_to_database(import_data, table_name, fields):
+def send_it_to_database(import_data, table_name, fields, hash_id):
     """Send the imported data to database"""
     sql_insert = ""
     for line_data in import_data:
-        sql_insert += insert_table(table_name, fields, line_data)
+        sql_insert += insert_table(
+            table_name,
+            fields,
+            line_data,
+            hash_id
+        )
     if sql_insert:
         custom_sql(sql_insert, False)

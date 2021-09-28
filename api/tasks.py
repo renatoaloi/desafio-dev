@@ -5,8 +5,8 @@ import pathlib
 import dramatiq
 from django.utils import timezone
 from api import db
-from api.models import CnabImport
-from backend.models import ImportTemplate
+from api.models import CnabImport, Shop
+from backend.models import ImportTemplate, TransactionTypeTemplate
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +18,33 @@ def save_done_status(cnab_import_id, len_import_data):
         cnab_import.done_date = timezone.now()
         cnab_import.rows_imported = len_import_data
         cnab_import.save()
+
+def post_process(table_name, hash_id):
+    """Import post process"""
+    sql = f"""
+        SELECT * FROM {table_name} WHERE hash_id='{hash_id}'
+    """
+    results = db.custom_sql_all(sql)
+    print(results)
+    for result in results:
+        value = result[4]
+        tr_type = TransactionTypeTemplate.objects.filter(
+            id=result[2]
+        ).first()
+        if tr_type:
+            if tr_type.signal == 'minus':
+                value *= -1
+            shop = Shop.objects.filter(name=result[9]).first()
+            if not shop:
+                shop = Shop.objects.create(
+                    name=result[9],
+                    owner=result[8],
+                    balance=value
+                )
+            else:
+                shop.balance += value
+                shop.save()
+
 
 @dramatiq.actor
 def queue_parser(event):
@@ -37,8 +64,11 @@ def queue_parser(event):
                 run_path = str(pathlib.Path(__file__).parent.resolve()).replace("\\", "/")
                 file_path = f"{run_path}/..{event_data['file']}"
                 import_data = db.do_import_data(file_path, template_id)
-                db.send_it_to_database(import_data, table_name, fields)
+                hash_id = hash(f'{table_name}_{template_id}_{cnab_import_id}')
+                db.send_it_to_database(import_data, table_name, fields, hash_id)
                 save_done_status(cnab_import_id, len(import_data))
+                # TODO: find a way to parametrize post processing
+                post_process(table_name, hash_id)
 
 def process_file(*args):
     """Scheduler task processor"""
