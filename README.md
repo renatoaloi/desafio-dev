@@ -1,15 +1,43 @@
 # CNAB Parser
 
+## Description
+
+Flat file parser project to deal with large positional files, like CSV.
+
+To accomplish the task of dealing with large batch processing files, the project has a RabbitMQ queue that asynchronously processes the file in a separate worker.
+
+Sending the task to the queue is done by an RPC worker listening for processing requisitions. This worker lies inside an APScheduler command. It can be replaced by a CRON job instead.
+
 ## Modules
 
 - Parser API
   - REST API for database operations
 - Parser Django Command Worker
   - Django command for worker (to be loaded inside a systemd service)
-- Parser Admin
+- Parser Admin (Backend)
   - Django Admin application to help out CRUD operations
 - Parser Database
-  - Local memory LiteSQL database
+  - PostgreSQL inside docker container (run docker-compose up to bring it up)
+- Parser Web (Frontend)
+  - React Web application for user interface
+
+## Frontend Environment Setup
+
+```
+$ cd frontend
+$ yarn
+$ yarn start
+```
+
+Then navigate to `http://localhost:3000`
+
+## Admin Backend
+
+First you must bring the environment up.
+
+Then navigate to `http://localhost:8000/admin`
+
+Login as superuser.
 
 ## Environment Setup
 
@@ -53,6 +81,7 @@ $ python manage.py migrate
 ```
 
 - Load the auxiliary tables
+
 ```
 $ python manage.py loaddata campos_cnab import_cnab_template import_template tipos_transacoes
 ```
@@ -98,7 +127,6 @@ $ docker-compose up
 > NOTE: Don't you forget to create a new superuser!
 
 ## Superuser Password Recovery
-
 
 In case of superuser's password lost, first open a Django shell:
 
