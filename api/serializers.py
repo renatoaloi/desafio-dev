@@ -4,6 +4,15 @@ from rest_framework import serializers
 from api.models import CnabImport, Shop
 from backend.models import ImportTemplate
 
+
+class ListImportsSerializer(serializers.ModelSerializer):
+    """List imports serializer"""
+
+    class Meta:
+        model = CnabImport
+        fields = '__all__'
+
+
 class ListStoresSerializer(serializers.ModelSerializer):
     """List stores serializer"""
 

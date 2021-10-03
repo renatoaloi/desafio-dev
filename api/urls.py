@@ -1,6 +1,7 @@
 """CNAB Parser API urls file"""
 from django.urls import path
-from api.views import CnabImportView, SchedulerView, StoresView
+from api.views import CnabImportView, ImportsView, \
+    SchedulerView, StoresView
 
 urlpatterns = [
     path(
@@ -16,5 +17,10 @@ urlpatterns = [
         'stores',
         StoresView.as_view(),
         name='stores'
+    ),
+    path(
+        'imports',
+        ImportsView.as_view(),
+        name='imports'
     )
 ]
