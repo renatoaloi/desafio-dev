@@ -12,7 +12,7 @@ export default function useImports() {
     refetchOnWindowFocus: false,
   });
 
-  const getStore = useCallback(() => {
+  const getImport = useCallback(() => {
     return imports;
   }, [imports]);
 
@@ -20,6 +20,6 @@ export default function useImports() {
     imports,
     isImportsLoading,
     isImportsError,
-    getStore,
+    getImport,
   };
 }

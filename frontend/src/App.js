@@ -8,6 +8,8 @@ import "./App.css";
 
 const queryClient = new QueryClient();
 
+const invalidateQuery = (query) => queryClient.invalidateQueries(query);
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -42,7 +44,7 @@ export default function App() {
             <Stores />
           </Route>
           <Route path="/upload">
-            <Upload />
+            <Upload onInvalidateQuery={invalidateQuery} />
           </Route>
           <Route path="/">
             <Home />

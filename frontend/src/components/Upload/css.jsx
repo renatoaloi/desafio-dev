@@ -7,3 +7,7 @@ export const Container = styled.div`
 export const H2 = styled.h2`
   color: blue;
 `;
+
+export const StyledForm = styled.div`
+  padding: 20px 20px 20px 20px;
+`;
