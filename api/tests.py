@@ -42,3 +42,20 @@ class CnabParserApiTest(TestCase):
             }
             response = self.client.post(url, payload)
         assert response.status_code == 200
+
+
+class ShopApiTest(TestCase):
+    """Shop API Test class"""
+
+    def __init__(self, methodName: str = ...):
+        self.client = Client()
+        super().__init__(methodName=methodName)
+
+    def test_list_stores(self):
+        """Test list stores"""
+        Shop.objects.create(name='teste')
+        url = reverse('stores')
+        response = self.client.get(url)
+        data = response.json()
+        assert response.status_code == 200
+        assert len(data['data'])

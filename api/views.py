@@ -1,11 +1,26 @@
 """CNAB Parser API Views"""
 from rest_framework.views import APIView
 
-from api.serializers import CreateCnabImportSerializer
-from api.models import CnabImport
+from api.serializers import CreateCnabImportSerializer, ListStoresSerializer
+from api.models import CnabImport, Shop
 from api.utils import error_response, success_response
 from cnab_parser import settings
 
+
+class StoresView(APIView):
+    """Stores View"""
+    authentication_classes = []
+
+    def get(self, request):
+        """List stores"""
+        try:
+            serializer = ListStoresSerializer(
+                Shop.objects.all(),
+                many=True
+            )
+            return success_response(serializer.data)
+        except Exception as err:
+            return error_response(str(err))
 
 class SchedulerView(APIView):
     """File Upload Scheduler View"""

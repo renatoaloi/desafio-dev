@@ -1,13 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./pages/Home";
 import Stores from "./pages/Stores";
 import Upload from "./pages/Upload";
 import "./App.css";
 
+const queryClient = new QueryClient();
+
 export default function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Router>
         <header className="header">
           <div className="title">
@@ -46,6 +49,6 @@ export default function App() {
           </Route>
         </Switch>
       </Router>
-    </>
+    </QueryClientProvider>
   );
 }

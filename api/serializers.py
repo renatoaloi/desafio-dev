@@ -1,8 +1,15 @@
 """CNAB Parser API serializers"""
 from dateutil.rrule import rrule, HOURLY
 from rest_framework import serializers
-from api.models import CnabImport
+from api.models import CnabImport, Shop
 from backend.models import ImportTemplate
+
+class ListStoresSerializer(serializers.ModelSerializer):
+    """List stores serializer"""
+
+    class Meta:
+        model = Shop
+        fields = '__all__'
 
 
 class CreateCnabImportSerializer(serializers.ModelSerializer):
