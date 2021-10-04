@@ -2,7 +2,7 @@
 
 ## Description
 
-Flat file parser project to deal with large positional files, like CSV.
+Flat file parser project to deal with large positional files, like CNAB files.
 
 To accomplish the task of dealing with large batch processing files, the project has a RabbitMQ queue that asynchronously processes the file in a separate worker.
 
